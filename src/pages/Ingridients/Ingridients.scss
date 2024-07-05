@@ -1,0 +1,27 @@
+.ingridients_h1 {
+  display: none;
+}
+
+.table__contaner {
+  display: grid;
+  grid-template-columns: 25% 15% 5% 15% 20% 20%;
+  background-color: var(--background-deep-light);
+  padding: 5px 0;
+  margin-bottom: 15px;
+
+
+
+  & .table__item {
+    border-right: 1px var(--border-deep-color) solid;
+    text-wrap: wrap;
+    padding: 5px;
+    font-weight: 100;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+
+    &:last-child {
+      border-right: none;
+    }
+
+  }
+}

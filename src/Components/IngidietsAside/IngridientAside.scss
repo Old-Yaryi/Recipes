@@ -1,0 +1,18 @@
+.aside {
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 15px;
+
+    & h2 {
+      display: inline-block;
+      font-weight: 100;
+    }
+
+    & img {
+      width: 60px;
+    }
+  }
+
+}

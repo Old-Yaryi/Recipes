@@ -1,0 +1,98 @@
+:root {
+  max-width: 1560px;
+  padding: 20px 20px 5px;
+  font-family: "Mulish", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: rgba(255, 255, 255, 0.85);
+  background-color: #242424;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --main-text-color: rgba(255, 255, 255, 0.85);
+  --second-color: #c17ef8;
+  --third-color: #6B00C2;
+  --border-deep-color: rgba(255, 255, 255, 0.2);
+  --background-deep-light: rgba(255, 255, 255, 0.06);
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+a {
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: inherit;
+  transition: color 0.5s ease-in;
+}
+
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: 100;
+  background-color: rgba(255, 255, 255, 0.06);
+  border: solid 1px rgba(255, 255, 255, 0.2);
+  color: var(--main-text-color);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color 0.3s, color 0.3s;
+}
+
+button:hover {
+  border-color: #c17ef8;
+  color: var(--second-color);
+
+}
+
+
+header {
+  flex-grow: 0;
+}
+
+main {
+  flex-grow: 1;
+  max-width: 1560px;
+}
+
+footer {
+  flex-grow: 0;
+  text-align: right;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+p {
+  padding: 0;
+  margin: 0;
+}
+
+.material-symbols-outlined {
+  display: block;
+  line-height: 0.7;
+}
