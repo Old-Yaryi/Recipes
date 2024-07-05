@@ -10,17 +10,17 @@ const getData = async () => {
   const responce = await fetch('./Ingridients.json')
   return responce.json()
 }
-// https://jsonplaceholder.typicode.com/posts
 const Ingridients = () => {
-
-
+  const [search, setSearch] = useState('')
   const { data, error, isLoading } = useQuery({
     queryKey: ['ingridient'],
-    queryFn: getData,
-
+    queryFn: getData
   })
-
-  const [search, setSearch] = useState('')
+  const filteredOfName =
+    isLoading ? 'loading...' :
+      data.filter(ingridient => {
+        return ingridient.title.toLowerCase().includes(search.toLocaleLowerCase())
+      })
 
   return (
     <div className="main__grid">
@@ -32,22 +32,37 @@ const Ingridients = () => {
           <SearchIngridents search={search} searchData={(e) => setSearch(e.target.value)} />
         </div>
         <IngridientsTableHeader />
-        {search === '' ? <div>Пусто</div> : <div>{search}</div>}
-        {isLoading
-          ? '...Loading'
-          : data?.length
-            ? data.map((post) => (
-              <div className="table__contaner" key={post.id}>
-                <div className="table__item name">{post.title}</div>
-                <div className="table__item inci">{post.INCI.join(' / ')}</div>
-                <div className="table__item ph">{post.ph}</div>
-                <div className="table__item solubility">{post.solubility.join(' / ')
-                }</div>
-                <div className="table__item function"  >{post.functions.join(', ')}</div>
-                <div className="table__item description">{post.descripton}</div>
-              </div>)
-            )
-            : <div>{error.message}</div>}
+        {search === '' ?
+          <div>{isLoading ?
+            '...Loading'
+            : data?.length ?
+              data.map((post) => (
+                <div className="table__contaner" key={post.id}>
+                  <div className="table__item name">{post.title}</div>
+                  <div className="table__item inci">{post.INCI.join(' / ')}</div>
+                  <div className="table__item ph">{post.ph}</div>
+                  <div className="table__item solubility">{post.solubility.join(' / ')
+                  }</div>
+                  <div className="table__item function"  >{post.functions.join(', ')}</div>
+                  <div className="table__item description">{post.descripton}</div>
+                </div>)
+              )
+              : <div>{error.message}</div>}</div>
+          : <div>{isLoading ?
+            '...Loading'
+            : data?.length ?
+              filteredOfName.map((post) => (
+                <div className="table__contaner" key={post.id}>
+                  <div className="table__item name">{post.title}</div>
+                  <div className="table__item inci">{post.INCI.join(' / ')}</div>
+                  <div className="table__item ph">{post.ph}</div>
+                  <div className="table__item solubility">{post.solubility.join(' / ')
+                  }</div>
+                  <div className="table__item function"  >{post.functions.join(', ')}</div>
+                  <div className="table__item description">{post.descripton}</div>
+                </div>)
+              )
+              : <div>{error.message}</div>}</div>}
       </div>
     </div>
   )
