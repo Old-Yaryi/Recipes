@@ -15,15 +15,13 @@ const getData = async () => {
 const Ingridients = () => {
 
   const [search, setSearch] = useState('')
-  let [typeSearch, setTypeSearch] = useState('title')
+  const [typeSearch, setTypeSearch] = useState('title')
 
   const { data, error, isLoading } = useQuery({
     queryKey: ['ingridient'],
     queryFn: getData
   })
-  // useEffect(() => {
-  //   console.log(typeSearch);
-  // }, [typeSearch])
+
 
   function setSearchOfType(searchType) {
     setTypeSearch(searchType)

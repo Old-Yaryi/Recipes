@@ -33,6 +33,27 @@
 
   &::placeholder {
     color: var(main-text-color);
+    font-family: "Mulish", sans-serif;
+  }
+}
+
+.search__type {
+  position: absolute;
+  right: 60px;
+  top: 14px;
+  background-color: inherit;
+  border: none;
+  color: #c17ef8;
+  font-weight: 100;
+  font-size: 16px;
+  letter-spacing: 1.2px;
+  outline: 0;
+  padding: 5px 10px;
+  font-family: "Mulish", sans-serif;
+  border-radius: 10px;
+
+  & option {
+    background-color: var(--background-deep-light);
   }
 }
 
