@@ -4,32 +4,54 @@ import IngridientsTableHeader from "../../Components/IngridientsTableHeader/Ingr
 import SearchIngridents from "../../Components/SearchIngidients/SearchIngridents"
 import { useQuery } from "@tanstack/react-query"
 import './Ingridients.scss'
-// import { json } from "../../Layouts/JSON/Ingridients.json"
+
 
 const getData = async () => {
   const responce = await fetch('./Ingridients.json')
   return responce.json()
 }
+
+
 const Ingridients = () => {
+
   const [search, setSearch] = useState('')
+  let [typeSearch, setTypeSearch] = useState('title')
+
   const { data, error, isLoading } = useQuery({
     queryKey: ['ingridient'],
     queryFn: getData
   })
+  // useEffect(() => {
+  //   console.log(typeSearch);
+  // }, [typeSearch])
+
+  function setSearchOfType(searchType) {
+    setTypeSearch(searchType)
+    console.log(typeSearch);
+  }
+
   const filteredOfName =
     isLoading ? 'loading...' :
       data.filter(ingridient => {
         return ingridient.title.toLowerCase().includes(search.toLocaleLowerCase())
       })
+  // const filteredOfInci = 
+  //   isLoading ? 'Loding...' :
+  //     data.filter(ingridient => {
+  //     return ingridient.INCI.toLowerCase().includes(search.toLocaleLowerCase())
+  //   })
 
   return (
     <div className="main__grid">
       <aside className="main__aside"><IngidietsAside /></aside>
       <div className="main__container">
         <h1 className="ingridients_h1">Ингридиенты</h1>
-
+        {typeSearch === 'title' ? <div>Наименование блянах</div> : <div>inci blya</div>}
         <div className="main__searchpanel">
-          <SearchIngridents search={search} searchData={(e) => setSearch(e.target.value)} />
+          <SearchIngridents
+            search={search} searchData={(e) => setSearch(e.target.value)}
+            setSearchOfType={setSearchOfType}
+          />
         </div>
         <IngridientsTableHeader />
         {search === '' ?
@@ -62,7 +84,8 @@ const Ingridients = () => {
                   <div className="table__item description">{post.descripton}</div>
                 </div>)
               )
-              : <div>{error.message}</div>}</div>}
+              : <div>{error.message}</div>}</div>
+        }
       </div>
     </div>
   )

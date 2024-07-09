@@ -1,10 +1,17 @@
 
 
+// import { useState } from 'react'
 import './SearchIngridients.scss'
 
-// eslint-disable-next-line react/prop-types
-const SearchIngridents = ({ search, searchData }) => {
 
+
+
+// eslint-disable-next-line react/prop-types
+const SearchIngridents = ({ search, searchData, setSearchOfType }) => {
+
+  function typeOfSearch(e) {
+    setSearchOfType(e.target.value)
+  }
 
   return (
     <>
@@ -14,10 +21,12 @@ const SearchIngridents = ({ search, searchData }) => {
           onChange={searchData}
           type="search"
           name="srch-ingr" id="srch-ingr"
-          placeholder='поиск по наименованию..' />
-        {/* <span className="material-symbols-outlined">
-          manage_search
-        </span> */}
+          placeholder='поиск по '
+        />
+        <select className='search__type' name="searchType" id="searchType" onChange={typeOfSearch} >
+          <option value="title">Наименованию</option>
+          <option value="INCI">INCI</option>
+        </select>
 
 
       </div>
