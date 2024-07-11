@@ -109,21 +109,19 @@ const Ingridients = () => {
                 <div>{error.message}</div>}
             </div>
             :
-            <div>{isLoading ? '...Loading'
-              : data?.length ?
-                filteredOfInci.map((post) => (
-                  <Link key={post.id} to={`/ingridient/${post.id}`}>
-                    <InridientItem
-                      title={post.title}
-                      INCI={post.INCI.join(' / ')}
-                      ph={post.ph}
-                      solubility={post.solubility.join(' / ')}
-                      functions={post.functions.join(', ')}
-                      descripton={post.descripton}
-                    />
-                  </Link>))
-                :
-                <div>{error.message}</div>}
+            <div>{isLoading ? '...Loading' : data?.length ? filteredOfInci.map((post) => (
+              <Link key={post.id} to={`/ingridient/${post.id}`}>
+                <InridientItem
+                  title={post.title}
+                  INCI={post.INCI.join(' / ')}
+                  ph={post.ph}
+                  solubility={post.solubility.join(' / ')}
+                  functions={post.functions.join(', ')}
+                  descripton={post.descripton}
+                />
+              </Link>))
+              :
+              <div>{error.message}</div>}
             </div>
         }
       </div>

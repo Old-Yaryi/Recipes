@@ -20,10 +20,10 @@ const SearchIngridents = ({ search, searchData, setSearchOfType }) => {
           value={search}
           onChange={searchData}
           type="search"
-          name="srch-ingr" id="srch-ingr"
+          id="srch-ingr"
           placeholder='поиск по '
         />
-        <select className='search__select' name="searchType" id="searchType" onChange={typeOfSearch} >
+        <select className='search__select' id="searchType" onChange={typeOfSearch} >
           <option className='search__option' value="title">наименованию</option>
           <option className='search__option' value="INCI">INCI</option>
         </select>

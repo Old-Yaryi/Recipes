@@ -1,0 +1,15 @@
+.ingridient__inner {
+  margin-bottom: 20px;
+
+  & span {
+    font-weight: 600;
+    color: #c17ef8;
+    font-size: 20px;
+    margin-right: 20px;
+  }
+
+  &.name {
+    font-weight: 600;
+    font-size: 40px;
+  }
+}
