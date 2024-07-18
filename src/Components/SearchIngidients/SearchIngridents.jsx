@@ -1,12 +1,9 @@
 
-
-// import { useState } from 'react'
 import './SearchIngridients.scss'
 
 
 
 
-// eslint-disable-next-line react/prop-types
 const SearchIngridents = ({ search, searchData, setSearchOfType }) => {
 
   function typeOfSearch(e) {
@@ -20,7 +17,6 @@ const SearchIngridents = ({ search, searchData, setSearchOfType }) => {
           value={search}
           onChange={searchData}
           type="search"
-          id="srch-ingr"
           placeholder='поиск по '
         />
         <select className='search__select' id="searchType" onChange={typeOfSearch} >
