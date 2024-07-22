@@ -9,7 +9,7 @@ import { Link } from "react-router-dom"
 
 
 const getData = async () => {
-  const responce = await fetch('./Ingridients.json')
+  const responce = await fetch('./full_ingridient.json')
   return responce.json()
 }
 
@@ -21,7 +21,8 @@ const Ingridients = () => {
 
   const { data, error, isLoading } = useQuery({
     queryKey: ['ingridient'],
-    queryFn: getData
+    queryFn: getData,
+    staleTime: 5 * 1000
   })
 
 
@@ -32,12 +33,12 @@ const Ingridients = () => {
   const filteredOfName =
     isLoading ? 'loading...' :
       data.filter(ingridient => {
-        return ingridient.title.toLowerCase().includes(search)
+        return ingridient.name.toLowerCase().includes(search)
       })
   const filteredOfInci =
     isLoading ? 'Loding...' :
       data.filter(ingridient => {
-        return ingridient.INCI.join(' / ').toLowerCase().includes(search.toLowerCase())
+        return ingridient.inci.join(' / ').toLowerCase().includes(search.toLowerCase())
       })
 
 
@@ -62,12 +63,12 @@ const Ingridients = () => {
                 data.map((post) => (
                   <Link key={post.id} to={`/ingridient/${post.id}`}>
                     <InridientItem
-                      title={post.title}
-                      INCI={post.INCI.join(' / ')}
+                      title={post.name}
+                      INCI={post.inci.join(' / ')}
                       ph={post.ph}
                       solubility={post.solubility.join(' / ')}
                       functions={post.functions.join(', ')}
-                      descripton={post.descripton}
+                      descripton={post.prev_description}
                     />
                   </Link>))
                 :
@@ -77,12 +78,12 @@ const Ingridients = () => {
             <div>{isLoading ? '...Loading' : data?.length ? filteredOfName.map((post) => (
               <Link key={post.id} to={`/ingridient/${post.id}`}>
                 <InridientItem
-                  title={post.title}
-                  INCI={post.INCI.join(' / ')}
+                  title={post.name}
+                  INCI={post.inci.join(' / ')}
                   ph={post.ph}
                   solubility={post.solubility.join(' / ')}
                   functions={post.functions.join(', ')}
-                  descripton={post.descripton}
+                  descripton={post.prev_description}
                 />
               </Link>))
               :
@@ -98,12 +99,12 @@ const Ingridients = () => {
                 data.map((post) => (
                   <Link key={post.id} to={`/ingridient/${post.id}`}>
                     <InridientItem
-                      title={post.title}
-                      INCI={post.INCI.join(' / ')}
+                      title={post.name}
+                      INCI={post.inci.join(' / ')}
                       ph={post.ph}
                       solubility={post.solubility.join(' / ')}
                       functions={post.functions.join(', ')}
-                      descripton={post.descripton}
+                      descripton={post.prev_description}
                     />
                   </Link>))
                 :
@@ -113,12 +114,12 @@ const Ingridients = () => {
             <div>{isLoading ? '...Loading' : data?.length ? filteredOfInci.map((post) => (
               <Link key={post.id} to={`/ingridient/${post.id}`}>
                 <InridientItem
-                  title={post.title}
-                  INCI={post.INCI.join(' / ')}
+                  title={post.name}
+                  INCI={post.inci.join(' / ')}
                   ph={post.ph}
                   solubility={post.solubility.join(' / ')}
                   functions={post.functions.join(', ')}
-                  descripton={post.descripton}
+                  descripton={post.prev_description}
                 />
               </Link>))
               :

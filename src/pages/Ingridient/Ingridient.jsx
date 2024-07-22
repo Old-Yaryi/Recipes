@@ -4,19 +4,21 @@ import { useQuery } from "@tanstack/react-query"
 
 import './Ingridient.scss'
 
-const getData1 = async () => {
+const getData = async () => {
   const responce = await fetch('../../full_ingridient.json')
   return responce.json()
 }
 
 
 const Ingridient = () => {
+
+
   const { id } = useParams()
 
 
   const { data, isPending, isSuccess, error } = useQuery({
-    queryKey: ['ingridientFull'],
-    queryFn: getData1
+    queryKey: ['ingridient'],
+    queryFn: getData
   })
 
 
@@ -27,6 +29,8 @@ const Ingridient = () => {
       isSuccess ? data.filter(item => {
         return item.id == id
       }) : console.log(error.message);
+
+
   return (
     <section className="ingridient">
       {isPending ? <div>Loading...</div> :
