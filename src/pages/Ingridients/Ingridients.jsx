@@ -57,7 +57,7 @@ const Ingridients = () => {
         {typeSearch === 'title' ?
           // Рендеринг с поиском по наименованию
           search === '' ?
-            <div>{isLoading ? '...Loading'
+            <div className="table__body">{isLoading ? '...Loading'
               : data?.length ?
                 data.map((post) => (
                   <Link key={post.id} to={`/ingridient/${post.id}`}>

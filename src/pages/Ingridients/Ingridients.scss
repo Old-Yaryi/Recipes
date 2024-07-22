@@ -3,6 +3,7 @@
 }
 
 .table__contaner {
+  position: relative;
   display: grid;
   grid-template-columns: 25% 15% 5% 15% 20% 20%;
   background-color: var(--background-deep-light);
@@ -11,14 +12,29 @@
   transition: transform 0.4s ease-out;
   border-radius: 5px;
 
+  &::after {
+    position: absolute;
+    content: '';
+    width: 0;
+    height: 1px;
+    background-color: #fff;
+    bottom: 0;
+    left: 0;
+    transition: width 0.5s ease-in-out;
+  }
+
   &:hover {
     transform: translate(-15px, -5px);
     color: #fff;
 
+    &::after {
+      width: 25%;
+    }
 
     & .table__item.name {
       font-size: 18px;
     }
+
   }
 
   & .table__item {
