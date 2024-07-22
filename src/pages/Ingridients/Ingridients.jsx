@@ -40,6 +40,7 @@ const Ingridients = () => {
         return ingridient.INCI.join(' / ').toLowerCase().includes(search.toLowerCase())
       })
 
+
   return (
     <div className="main__grid">
       <aside className="main__aside"><IngidietsAside /></aside>
