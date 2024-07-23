@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query"
 
 
 const getAllIngridients = async () => {
-  const responce = await fetch('./full_ingridient.json')
+  const responce = await fetch('../../full_ingridient.json')
   return responce.json()
 }
 

@@ -1,45 +1,40 @@
 import { useState } from "react"
+import { Link } from "react-router-dom"
 import IngidietsAside from "../../Components/IngidietsAside/IngidietsAside"
 import IngridientsTableHeader from "../../Components/IngridientsTableHeader/IngridientsTableHeader"
 import SearchIngridents from "../../Components/SearchIngidients/SearchIngridents"
 import InridientItem from "../../Components/InridientItem/InridientItem"
-import { useQuery } from "@tanstack/react-query"
+import { useGetAllIngridients } from "../../Servises/queryIngridients"
+
 import './Ingridients.scss'
-import { Link } from "react-router-dom"
 
-
-const getData = async () => {
-  const responce = await fetch('./full_ingridient.json')
-  return responce.json()
-}
 
 
 const Ingridients = () => {
 
   const [search, setSearch] = useState('')
   const [typeSearch, setTypeSearch] = useState('title')
-
-  const { data, error, isLoading } = useQuery({
-    queryKey: ['ingridient'],
-    queryFn: getData,
-    staleTime: 5 * 1000
-  })
-
+  const { data, isLoading, isSuccess, error } = useGetAllIngridients()
 
   function setSearchOfType(searchType) {
     setTypeSearch(searchType)
   }
 
   const filteredOfName =
-    isLoading ? 'loading...' :
-      data.filter(ingridient => {
+    isLoading ? '' :
+      isSuccess ? data.filter(ingridient => {
         return ingridient.name.toLowerCase().includes(search)
-      })
+      }) :
+        error ? console.log(error.message) : null
+
+
   const filteredOfInci =
-    isLoading ? 'Loding...' :
-      data.filter(ingridient => {
+    isLoading ? '' :
+      isSuccess ? data.filter(ingridient => {
         return ingridient.inci.join(' / ').toLowerCase().includes(search.toLowerCase())
-      })
+      }) :
+        error ? console.log(error.message) : null
+
 
 
   return (
@@ -58,8 +53,8 @@ const Ingridients = () => {
         {typeSearch === 'title' ?
           // Рендеринг с поиском по наименованию
           search === '' ?
-            <div className="table__body">{isLoading ? '...Loading'
-              : data?.length ?
+            <div>{isLoading ? '...Loading'
+              : isSuccess ?
                 data.map((post) => (
                   <Link key={post.id} to={`/ingridient/${post.id}`}>
                     <InridientItem
@@ -75,19 +70,20 @@ const Ingridients = () => {
                 <div>{error.message}</div>}
             </div>
             :
-            <div>{isLoading ? '...Loading' : data?.length ? filteredOfName.map((post) => (
-              <Link key={post.id} to={`/ingridient/${post.id}`}>
-                <InridientItem
-                  title={post.name}
-                  INCI={post.inci.join(' / ')}
-                  ph={post.ph}
-                  solubility={post.solubility.join(' / ')}
-                  functions={post.functions.join(', ')}
-                  descripton={post.prev_description}
-                />
-              </Link>))
-              :
-              <div>{error.message}</div>}
+            <div>{isLoading ? '...Loading'
+              : isSuccess ? filteredOfName.map((post) => (
+                <Link key={post.id} to={`/ingridient/${post.id}`}>
+                  <InridientItem
+                    title={post.name}
+                    INCI={post.inci.join(' / ')}
+                    ph={post.ph}
+                    solubility={post.solubility.join(' / ')}
+                    functions={post.functions.join(', ')}
+                    descripton={post.prev_description}
+                  />
+                </Link>))
+                :
+                <div>{error.message}</div>}
             </div>
 
           :
@@ -95,7 +91,7 @@ const Ingridients = () => {
           // рендеринг с поиском по INCI
           search === '' ?
             <div>{isLoading ? '...Loading'
-              : data?.length ?
+              : isSuccess ?
                 data.map((post) => (
                   <Link key={post.id} to={`/ingridient/${post.id}`}>
                     <InridientItem
@@ -111,7 +107,7 @@ const Ingridients = () => {
                 <div>{error.message}</div>}
             </div>
             :
-            <div>{isLoading ? '...Loading' : data?.length ? filteredOfInci.map((post) => (
+            <div>{isLoading ? '...Loading' : isSuccess ? filteredOfInci.map((post) => (
               <Link key={post.id} to={`/ingridient/${post.id}`}>
                 <InridientItem
                   title={post.name}

@@ -1,39 +1,24 @@
-
 import { useParams } from "react-router-dom"
-import { useQuery } from "@tanstack/react-query"
-
+import { useGetAllIngridients } from "../../Servises/queryIngridients"
 import './Ingridient.scss'
-
-const getData = async () => {
-  const responce = await fetch('../../full_ingridient.json')
-  return responce.json()
-}
 
 
 const Ingridient = () => {
 
-
   const { id } = useParams()
-
-
-  const { data, isPending, isSuccess, error } = useQuery({
-    queryKey: ['ingridient'],
-    queryFn: getData
-  })
-
-
-
+  const { data, isLoading, isSuccess, error } = useGetAllIngridients()
 
   const dataIngridient =
-    isPending ? 'loading' :
+    isLoading ? 'loading' :
       isSuccess ? data.filter(item => {
         return item.id == id
-      }) : console.log(error.message);
+      })
+        : console.log(error.message);
 
 
   return (
     <section className="ingridient">
-      {isPending ? <div>Loading...</div> :
+      {isLoading ? <div>Loading...</div> :
         isSuccess ? dataIngridient.map((post) => (
           <div className="ingridient__item" key={post.id} >
             <div className="ingridient__inner name"><span>Наименование: </span>{post.name}</div>
