@@ -53,7 +53,7 @@ const Ingridients = () => {
         {typeSearch === 'title' ?
           // Рендеринг с поиском по наименованию
           search === '' ?
-            <div>{isLoading ? '...Loading'
+            isLoading ? <div>...Loading...</div>
               : isSuccess ?
                 data.map((post) => (
                   <Link key={post.id} to={`/ingridient/${post.id}`}>
@@ -67,10 +67,9 @@ const Ingridients = () => {
                     />
                   </Link>))
                 :
-                <div>{error.message}</div>}
-            </div>
+                error ? <div>{error.message}</div> : null
             :
-            <div>{isLoading ? '...Loading'
+            isLoading ? <div>...Loading...</div>
               : isSuccess ? filteredOfName.map((post) => (
                 <Link key={post.id} to={`/ingridient/${post.id}`}>
                   <InridientItem
@@ -83,14 +82,15 @@ const Ingridients = () => {
                   />
                 </Link>))
                 :
-                <div>{error.message}</div>}
-            </div>
+                error ? <div>{error.message}</div> : null
+
+
 
           :
 
           // рендеринг с поиском по INCI
           search === '' ?
-            <div>{isLoading ? '...Loading'
+            isLoading ? '...Loading'
               : isSuccess ?
                 data.map((post) => (
                   <Link key={post.id} to={`/ingridient/${post.id}`}>
@@ -104,10 +104,10 @@ const Ingridients = () => {
                     />
                   </Link>))
                 :
-                <div>{error.message}</div>}
-            </div>
+                error ? <div>{error.message}</div> : null
+
             :
-            <div>{isLoading ? '...Loading' : isSuccess ? filteredOfInci.map((post) => (
+            isLoading ? '...Loading' : isSuccess ? filteredOfInci.map((post) => (
               <Link key={post.id} to={`/ingridient/${post.id}`}>
                 <InridientItem
                   title={post.name}
@@ -119,8 +119,8 @@ const Ingridients = () => {
                 />
               </Link>))
               :
-              <div>{error.message}</div>}
-            </div>
+              error ? <div>{error.message}</div> : null
+
         }
       </div>
     </div>

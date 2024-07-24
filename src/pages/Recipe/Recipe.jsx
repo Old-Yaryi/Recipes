@@ -1,4 +1,6 @@
 import { useGetAllIngridients } from "../../Servises/queryIngridients"
+import RecipeItem from "../../Components/RecipeItem/RecipeItem"
+import ingridentsProps from "./recipeMiddleware.js"
 
 const Recipe = () => {
 
@@ -11,9 +13,12 @@ const Recipe = () => {
         <aside className="main__aside"><h2>фильтры</h2></aside>
         <div className="main__container">
           <h1>здесь будут рецепты</h1>
-          <div>{data.map((item) => (
-            <div key={item.id}>{item.name}</div>
-          ))}</div>
+
+          {data.map((item) => (
+            <div key={item.id}>
+              <RecipeItem props={ingridentsProps(item)} />
+            </div>
+          ))}
         </div>
       </div>
     )
