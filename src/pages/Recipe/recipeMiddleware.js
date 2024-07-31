@@ -1,4 +1,4 @@
-const ingridentsProps = function (post) {
+const ingridentsProps = (post) => {
   return {
     title: post.name,
     INCI: post.inci.join(' / '),

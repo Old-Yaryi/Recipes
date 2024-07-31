@@ -1,13 +1,15 @@
 import { useGetAllIngridients } from "../../Servises/queryIngridients"
 import RecipeItem from "../../Components/RecipeItem/RecipeItem"
 import ingridentsProps from "./recipeMiddleware.js"
-
+// import { filterSalut } from "../../Servises/queryIngridients.js";
 const Recipe = () => {
 
   const { data, isLoading, isSuccess, error } = useGetAllIngridients()
+  // const data = filterSalut("laborum")
   if (error) return <div>{error.message}</div>
   if (isLoading) return <div> Loading...</div>
   if (isSuccess)
+    // console.log(data);
     return (
       <div className="main__grid">
         <aside className="main__aside"><h2>фильтры</h2></aside>

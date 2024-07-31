@@ -90,7 +90,7 @@ const Ingridients = () => {
 
           // рендеринг с поиском по INCI
           search === '' ?
-            isLoading ? '...Loading'
+            isLoading ? <div>...Loading...</div>
               : isSuccess ?
                 data.map((post) => (
                   <Link key={post.id} to={`/ingridient/${post.id}`}>
@@ -107,19 +107,20 @@ const Ingridients = () => {
                 error ? <div>{error.message}</div> : null
 
             :
-            isLoading ? '...Loading' : isSuccess ? filteredOfInci.map((post) => (
-              <Link key={post.id} to={`/ingridient/${post.id}`}>
-                <InridientItem
-                  title={post.name}
-                  INCI={post.inci.join(' / ')}
-                  ph={post.ph}
-                  solubility={post.solubility.join(' / ')}
-                  functions={post.functions.join(', ')}
-                  descripton={post.prev_description}
-                />
-              </Link>))
-              :
-              error ? <div>{error.message}</div> : null
+            isLoading ? <div>...Loading...</div>
+              : isSuccess ? filteredOfInci.map((post) => (
+                <Link key={post.id} to={`/ingridient/${post.id}`}>
+                  <InridientItem
+                    title={post.name}
+                    INCI={post.inci.join(' / ')}
+                    ph={post.ph}
+                    solubility={post.solubility.join(' / ')}
+                    functions={post.functions.join(', ')}
+                    descripton={post.prev_description}
+                  />
+                </Link>))
+                :
+                error ? <div>{error.message}</div> : null
 
         }
       </div>

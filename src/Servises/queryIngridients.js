@@ -13,4 +13,23 @@ export const useGetAllIngridients = () => {
     staleTime: 5 * 1000
   })
   return data
-} 
+}
+
+export const useSolubilityIngridients = () => {
+  const data = useQuery({
+    queryKey: ['solubility'],
+    queryFn: getAllIngridients,
+
+  })
+  return data
+}
+
+// export const filterSalut = (fil) => {
+//   const { data, isLoading, isSuccess, error } = useSolubilityIngridients()
+//   if (error) return console.log(error.message)
+//   if (isLoading) return console.log('Loading')
+//   if (isSuccess) data.filter(item => {
+//     return item.inci.includes(fil)
+//   })
+
+// }

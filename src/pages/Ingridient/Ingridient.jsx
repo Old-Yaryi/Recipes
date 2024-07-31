@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom"
 import { useGetAllIngridients } from "../../Servises/queryIngridients"
 import './Ingridient.scss'
+import ButtonGoBack from "../../Components/ButtonGoBack/ButtonGoBack"
 
 
 const Ingridient = () => {
@@ -9,7 +10,7 @@ const Ingridient = () => {
   const { data, isLoading, isSuccess, error } = useGetAllIngridients()
 
   const dataIngridient =
-    isLoading ? 'loading' :
+    isLoading ? '' :
       isSuccess ? data.filter(item => {
         return item.id == id
       })
@@ -17,7 +18,9 @@ const Ingridient = () => {
 
 
   return (
+
     <section className="ingridient">
+      <ButtonGoBack />
       {isLoading ? <div>Loading...</div> :
         isSuccess ? dataIngridient.map((post) => (
           <div className="ingridient__item" key={post.id} >
@@ -29,7 +32,7 @@ const Ingridient = () => {
             <div className="ingridient__inner functions"><span>Функционал: </span>{post.functions.join(' / ')}</div>
             <div className="ingridient__inner precent"><span>% Ввода: </span>{post.precent}</div>
             <div className="ingridient__inner prev-desc"><span>Короткое описание: </span>{post.prev_description}</div>
-            <div className="ingridient__inner desc"><span>Полное описание: </span>{post.description}</div>
+            <div className="ingridient__inner desc"><span>Полное описание: </span><div>{post.description}</div></div>
             <div className="ingridient__inner note"><span>Заметки: </span>{post.note}</div>
           </div>
         )) : <div>{error.message}</div>}
