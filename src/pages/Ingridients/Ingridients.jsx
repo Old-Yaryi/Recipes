@@ -16,9 +16,7 @@ const Ingridients = () => {
   const [typeSearch, setTypeSearch] = useState('title')
   const { data, isLoading, isSuccess, error } = useGetAllIngridients()
 
-  function setSearchOfType(searchType) {
-    setTypeSearch(searchType)
-  }
+  const setSearchOfType = (searchType) => setTypeSearch(searchType);
 
   const filteredOfName =
     isLoading ? '' :
@@ -33,9 +31,25 @@ const Ingridients = () => {
       isSuccess ? data.filter(ingridient => {
         return ingridient.inci.join(' / ').toLowerCase().includes(search.toLowerCase())
       }) :
-        error ? console.log(error.message) : null
+        error && console.log(error.message)
 
-
+  const IngridientProps = (item) => {
+    return {
+      title: item.name,
+      INCI: item.inci.join(' / '),
+      ph: item.ph,
+      solubility: item.solubility.join(' / '),
+      functions: item.functions.join(' / '),
+      descripton: item.prev_description
+    }
+  }
+  const renderData = (data) => {
+    return data.map((post) => (
+      <Link key={post.id} to={`/ingridient/${post.id}`}>
+        <InridientItem {...IngridientProps(post)} />
+      </Link>
+    ))
+  }
 
   return (
     <div className="main__grid">
@@ -55,73 +69,34 @@ const Ingridients = () => {
           search === '' ?
             isLoading ? <div>...Loading...</div>
               : isSuccess ?
-                data.map((post) => (
-                  <Link key={post.id} to={`/ingridient/${post.id}`}>
-                    <InridientItem
-                      title={post.name}
-                      INCI={post.inci.join(' / ')}
-                      ph={post.ph}
-                      solubility={post.solubility.join(' / ')}
-                      functions={post.functions.join(', ')}
-                      descripton={post.prev_description}
-                    />
-                  </Link>))
+                renderData(data)
                 :
                 error ? <div>{error.message}</div> : null
             :
             isLoading ? <div>...Loading...</div>
               : isSuccess ? filteredOfName.map((post) => (
                 <Link key={post.id} to={`/ingridient/${post.id}`}>
-                  <InridientItem
-                    title={post.name}
-                    INCI={post.inci.join(' / ')}
-                    ph={post.ph}
-                    solubility={post.solubility.join(' / ')}
-                    functions={post.functions.join(', ')}
-                    descripton={post.prev_description}
-                  />
+                  <InridientItem {...IngridientProps(post)} />
                 </Link>))
                 :
                 error ? <div>{error.message}</div> : null
-
-
-
           :
 
           // рендеринг с поиском по INCI
           search === '' ?
             isLoading ? <div>...Loading...</div>
               : isSuccess ?
-                data.map((post) => (
-                  <Link key={post.id} to={`/ingridient/${post.id}`}>
-                    <InridientItem
-                      title={post.name}
-                      INCI={post.inci.join(' / ')}
-                      ph={post.ph}
-                      solubility={post.solubility.join(' / ')}
-                      functions={post.functions.join(', ')}
-                      descripton={post.prev_description}
-                    />
-                  </Link>))
+                renderData(data)
                 :
                 error ? <div>{error.message}</div> : null
-
             :
             isLoading ? <div>...Loading...</div>
               : isSuccess ? filteredOfInci.map((post) => (
                 <Link key={post.id} to={`/ingridient/${post.id}`}>
-                  <InridientItem
-                    title={post.name}
-                    INCI={post.inci.join(' / ')}
-                    ph={post.ph}
-                    solubility={post.solubility.join(' / ')}
-                    functions={post.functions.join(', ')}
-                    descripton={post.prev_description}
-                  />
+                  <InridientItem {...IngridientProps(post)} />
                 </Link>))
                 :
                 error ? <div>{error.message}</div> : null
-
         }
       </div>
     </div>

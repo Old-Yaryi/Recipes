@@ -13,10 +13,13 @@ const Recipe = () => {
 
   const [ingridient, setIngridient] = useState([])
   const { data, isLoading, isSuccess, error } = useGetAllIngridients()
+
+
   useEffect(() => {
     isSuccess ? setIngridient(data) : []
-  }, [data])
-  console.log(ingridient);
+  }, [isSuccess, data])
+
+
 
   if (error) return <div>{error.message}</div>
   if (isLoading) return <div> Loading...</div>
